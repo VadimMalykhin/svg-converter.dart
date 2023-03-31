@@ -14,3 +14,4 @@ jobs:
         with:
           sdk: ${{ vars.DART_VERSION }}
       - run: dart --version
+      - run: dart run test
