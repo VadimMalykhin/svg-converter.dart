@@ -5,13 +5,12 @@ on:
 
 jobs:
   test:
-    name: Build
+    name: Test
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: 3.0.0-290.3.beta
+          sdk: ${{ vars.DART_VERSION }}
       - run: dart --version
-
-
