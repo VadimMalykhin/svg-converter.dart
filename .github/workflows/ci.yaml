@@ -11,11 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/cache@v3
-        with:
-          path: ${{ runner.tool_cache }}/dart/${{ vars.DART_VERSION }}/x64
-          key: dart-sdk-${{ runner.os }}-${{ vars.DART_VERSION }}
-          
       - name: Download Dart SDK
         uses: dart-lang/setup-dart@v1
         with:
