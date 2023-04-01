@@ -6,12 +6,23 @@ on:
 jobs:
   test:
     name: Test
-    runs-on: self-hosted
+    runs-on:  ${{ vars.RUNS_ON }}
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
-      - uses: dart-lang/setup-dart@v1
+
+      - uses: actions/cache@v3
         with:
-          sdk: ${{ vars.DART_VERSION }}
-      - run: dart --version
-      - run: dart run test
+          path: ${{ runner.tool_cache }}/dart-sdk
+          key: dart-sdk-${{ runner.os }}-${{ vars.DART_VERSION }}
+          
+      - name: Download Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: "${{ vars.DART_VERSION }}"
+
+      - name: Dart Version
+        run: dart --version
+
+      - name: Run tests
+        run: dart run test
