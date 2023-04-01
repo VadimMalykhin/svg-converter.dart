@@ -13,7 +13,7 @@ jobs:
 
       - uses: actions/cache@v3
         with:
-          path: ${{ runner.tool_cache }}/dart-sdk
+          path: ${{ runner.tool_cache }}/dart/x64
           key: dart-sdk-${{ runner.os }}-${{ vars.DART_VERSION }}
           
       - name: Download Dart SDK
