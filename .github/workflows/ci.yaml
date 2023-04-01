@@ -6,7 +6,12 @@ on:
 jobs:
   test:
     name: Test
-    runs-on:  ${{ vars.RUNS_ON }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-20.04]
+        dart-sdk: ['3.0.0-290.3.beta']
+        runs-on: ['self-hosted', 'ubuntu-latest']
+    runs-on: ${{ matrix.runs-on }}
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
@@ -14,7 +19,7 @@ jobs:
       - name: Download Dart SDK
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: "${{ vars.DART_VERSION }}"
+          sdk: ${{ matrix.dart-sdk }}
 
       - name: Dart Version
         run: dart --version
