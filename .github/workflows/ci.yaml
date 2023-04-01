@@ -10,8 +10,8 @@ env:
 jobs:
   test:
     name: Test
-    runs-on: $RUNS_ON
-    environment: production
+    environment: Production
+    runs-on: ${{ github.env.RUNS_ON }}
     timeout-minutes: 5
     steps:
       - name: Checkout
@@ -20,7 +20,7 @@ jobs:
       - name: Setup Dart SDK
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: $DART_SDK
+          sdk: ${{ github.env.DART_SDK }}
 
       - name: Dart Version
         run: dart --version
