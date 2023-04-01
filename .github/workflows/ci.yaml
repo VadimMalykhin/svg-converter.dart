@@ -6,7 +6,7 @@ on:
 jobs:
   test:
     name: Test
-    runs-on: ${{ env.RUNS_ON }}
+    runs-on: self-hosted
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
@@ -14,7 +14,7 @@ jobs:
       - name: Download Dart SDK
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: ${{ env.DART_SDK }}
+          sdk: beta
 
       - name: Dart Version
         run: dart --version
