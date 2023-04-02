@@ -20,5 +20,4 @@ jobs:
 
       - name: Listing
         shell: bash
-        run: |
-          ls
+        run: ls
