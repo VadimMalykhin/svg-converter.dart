@@ -1,0 +1,24 @@
+name: Minify SVG
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  clone:
+    name: Clone
+    runs-on: self-hosted
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: VadimMalykhin/binance-icons
+          ref: refs/heads/dev
+
+      - name: Listing
+        shell: bash
+        run: |
+          ls
