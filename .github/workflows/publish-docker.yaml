@@ -1,21 +1,40 @@
 name: Publish to ghcr.io
 
-on: 
+on:
   workflow_dispatch:
+    inputs:
+      runs_on:
+        type: choice
+        description: Runs on
+        options:
+          - ubuntu-latest
+          - self-hosted
 
 env:
   RUNS_ON: ubuntu-latest
   REGISTRY: ghcr.io
-  DART_IMAGE: dart:beta
 
 jobs:
   build:
-    runs-on: ${{ github.env.RUNS_ON }}
-    container: ${{ github.env.DART_IMAGE }}
+    runs-on: ${{ inputs.runs_on }}
+    container: dart:beta
     steps:
       - name: env
-        run: echo ${{ github.env.DART_IMAGE }}
-        
+        run: echo $env
+
       - name: Dart Version
         run: dart --version
 
+      - uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
+  test:
+    needs: build
+    runs-on: ${{ inputs.runs_on }}
+    steps:
+      - name: Test
+        run: echo 1
