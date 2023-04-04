@@ -14,7 +14,6 @@ on:
 env:
   RUNS_ON: ubuntu-latest
   REGISTRY: ghcr.io
-  IMAGE_REPOSITORY_NAME: ${{ github.repository }}
   TAG_NAME: latest
 
 jobs:
@@ -78,14 +77,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHPR_TOKEN }}
 
-      - name: Build and push Docker image
-        id: docker_build
+      - id: string
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ${{ github.repository }}
+
+      - id: docker_build
+        name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           file: Dockerfile
           push: true
           # build-args: IMAGE_NAME=${{ env.IMAGE_NAME }}
-          tags: ${{ env.IMAGE_REPOSITORY_NAME }}:${{ env.TAG_NAME }}
+          tags: ${{ steps.string.outputs.lowercase }}:${{ env.TAG_NAME }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
