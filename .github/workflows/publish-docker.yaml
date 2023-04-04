@@ -54,7 +54,7 @@ jobs:
         run: ls -R
 
       - name: Run artifact
-        run: /svg-converter
+        run: ./svg-converter
 
   publish:
     needs: [build, test]
