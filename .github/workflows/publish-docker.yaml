@@ -14,7 +14,8 @@ on:
 env:
   RUNS_ON: ubuntu-latest
   REGISTRY: ghcr.io
-  IMAGE_NAME: ghcr.io/${{ github.actor }}/svg-converter:latest
+  IMAGE_REPOSITORY_NAME: vadimmalykhin/svg-converter
+  TAG_NAME: latest
 
 jobs:
   build:
@@ -80,8 +81,11 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: .
           file: Dockerfile
-          build-args: IMAGE_NAME=${{ env.IMAGE_NAME }}
-          tags: ${{ github.sha }}
+          context: .
           push: true
+          # build-args: IMAGE_NAME=${{ env.IMAGE_NAME }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY_NAME }}:${{ env.TAG_NAME }}
+          # secrets: |
+          #   github_actor=${{ github.actor }}
+          #   github_token=${{ secrets.GHPR_TOKEN }}
