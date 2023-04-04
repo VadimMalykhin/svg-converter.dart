@@ -86,6 +86,6 @@ jobs:
           push: true
           # build-args: IMAGE_NAME=${{ env.IMAGE_NAME }}
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY_NAME }}:${{ env.TAG_NAME }}
-          # secrets: |
-          #   github_actor=${{ github.actor }}
-          #   github_token=${{ secrets.GHPR_TOKEN }}
+          secrets: |
+            github_actor=${{ github.actor }}
+            github_token=${{ secrets.GHPR_TOKEN }}
