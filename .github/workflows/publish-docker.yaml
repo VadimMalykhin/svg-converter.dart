@@ -25,12 +25,16 @@ jobs:
       - name: Dart Version
         run: dart --version
 
-      - uses: actions/download-artifact@v3
-        with:
-          name: my-artifact
+      - name: Compile to executable
+        run: |
+          mkdir build
+          dart compile exe bin/svg_converter.dart -o build/svg_converter
 
-      - name: Display structure of downloaded files
-        run: ls -R
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: |
+            build/*
 
   test:
     needs: build
@@ -38,3 +42,13 @@ jobs:
     steps:
       - name: Test
         run: echo 1
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: build-artifact
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
+      - name: Run artifact
+        run: ./svg_converter
