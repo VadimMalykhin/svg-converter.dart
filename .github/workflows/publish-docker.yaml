@@ -14,7 +14,7 @@ on:
 env:
   RUNS_ON: ubuntu-latest
   REGISTRY: ghcr.io
-  IMAGE_REPOSITORY_NAME: vadimmalykhin/svg-converter
+  IMAGE_REPOSITORY_NAME: ${{ github.repository }}
   TAG_NAME: latest
 
 jobs:
@@ -79,10 +79,13 @@ jobs:
           password: ${{ secrets.GHPR_TOKEN }}
 
       - name: Build and push Docker image
+        id: docker_build
         uses: docker/build-push-action@v4
         with:
-          file: Dockerfile
           context: .
+          file: Dockerfile
           push: true
           # build-args: IMAGE_NAME=${{ env.IMAGE_NAME }}
           tags: ${{ env.IMAGE_REPOSITORY_NAME }}:${{ env.TAG_NAME }}
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
