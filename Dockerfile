@@ -1,23 +1,10 @@
-FROM dart:beta AS build
+# syntax=docker/dockerfile:1
+FROM ubuntu:latest
 
-RUN mkdir -p /app
+WORKDIR /home
 
-WORKDIR /app
+COPY --from=binary --chmod=0755 /svg-converter /usr/bin
+COPY --chmod=0755 ./entrypoint /usr/local/bin/entrypoint
 
-ADD pubspec.yaml .
-
-RUN dart pub get --offline
-
-COPY . .
-
-RUN dart compile exe bin/svg_converter.dart -o bin/svg_converter
-
-
-FROM scratch a
-
-
-CMD ["./app/svg_converter"]
-
-
-
-# https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.3.0-linux-x86-64.tar.gz
+ENTRYPOINT ["/usr/local/bin/entrypoint"]
+CMD ["/usr/bin/svg-converter"]
