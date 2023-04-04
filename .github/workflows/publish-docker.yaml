@@ -24,21 +24,18 @@ jobs:
         with:
           sdk: beta
 
-      - name: Dart version
-        run: dart --version
-
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Compile
-        run: dart compile exe bin/svg_converter.dart -o ./build/svg_converter
+        run: dart compile exe bin/svg_converter.dart -o ./svg_converter
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: build-artifact
           path: |
-            build/*
+            ./svg_converter
 
   test:
     needs: build
