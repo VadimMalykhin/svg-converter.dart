@@ -3,15 +3,13 @@ name: Run CI
 on:
   workflow_dispatch:
 
-env:
-  RUNS_ON: self-hosted
-  DART_SDK: beta
-    
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Test
-    environment: Production
-    runs-on: ${{ github.env.RUNS_ON }}
+    runs-on: self-hosted
     timeout-minutes: 5
     steps:
       - name: Checkout
@@ -20,10 +18,15 @@ jobs:
       - name: Setup Dart SDK
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: ${{ github.env.DART_SDK }}
+          sdk: beta
 
       - name: Dart Version
         run: dart --version
 
+
+      - name: Install dependencies
+        run: dart pub get
+
       - name: Run tests
         run: dart run test
+  

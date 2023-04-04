@@ -20,16 +20,14 @@ jobs:
     runs-on: ${{ inputs.runs_on }}
     container: dart:beta
     steps:
-      - name: env
-        run: echo $env
-
       - name: Dart Version
         run: dart --version
 
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Compile to executable
-        run: |
-          mkdir build
-          dart compile exe bin/svg_converter.dart -o build/svg_converter
+        run: dart compile exe bin/svg_converter.dart -o ./build/svg_converter
 
       - uses: actions/upload-artifact@v3
         with:

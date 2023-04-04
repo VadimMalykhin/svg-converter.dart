@@ -20,4 +20,4 @@ jobs:
 
       - name: Listing
         shell: bash
-        run: tree
+        run: ls
