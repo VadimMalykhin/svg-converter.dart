@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       runs_on:
+        required: true
         type: choice
         description: Runs on
         options:
