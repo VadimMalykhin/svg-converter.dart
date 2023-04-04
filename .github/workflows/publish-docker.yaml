@@ -37,7 +37,7 @@ jobs:
         with:
           name: build-artifact
           path: |
-            ./svg_converter
+            ./svg-converter
             ./Dockerfile
             ./entrypoint
 
@@ -54,7 +54,7 @@ jobs:
         run: ls -R
 
       - name: Run artifact
-        run: ./svg_converter
+        run: /svg-converter
 
   publish:
     needs: [build, test]
