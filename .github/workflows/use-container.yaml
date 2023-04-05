@@ -18,7 +18,12 @@ env:
 jobs:
   run:
     runs-on: ${{ inputs.runs_on }}
-    container: ghcr.io/vadimmalykhin/svg-converter:latest
+    container:
+      image: ghcr.io/vadimmalykhin/svg-converter:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GH_TOKEN }}
+
     steps:
       - name: Run SVG Converter
         run: /usr/bin/svg-converter
