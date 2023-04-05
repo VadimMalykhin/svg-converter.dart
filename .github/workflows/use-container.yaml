@@ -14,7 +14,6 @@ on:
 env:
   RUNS_ON: ubuntu-latest
   TAG_NAME: latest
-  GITHUB_TOKEN: ${{ github.token }}
 
 jobs:
   run:
@@ -23,7 +22,7 @@ jobs:
       image: ghcr.io/vadimmalykhin/svg-converter:latest
       credentials:
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ github.token }}
 
     steps:
       - name: Run SVG Converter
