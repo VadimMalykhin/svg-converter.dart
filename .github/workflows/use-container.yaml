@@ -11,6 +11,11 @@ on:
           - self-hosted
           - ubuntu-latest
 
+permissions:
+  contents: write
+  packages: read
+  actions: read
+
 env:
   RUNS_ON: ubuntu-latest
   TAG_NAME: latest
@@ -18,11 +23,13 @@ env:
 jobs:
   run:
     runs-on: ${{ inputs.runs_on }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     container:
       image: ghcr.io/vadimmalykhin/svg-converter:latest
       credentials:
         username: ${{ github.actor }}
-        password: ${{ github.token }}
+        password: ${{ env.GITHUB_TOKEN }}
 
     steps:
       - name: Run SVG Converter
