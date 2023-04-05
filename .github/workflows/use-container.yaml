@@ -24,7 +24,7 @@ jobs:
   run:
     runs-on: ${{ inputs.runs_on }}
     container:
-      image: ghcr.io/vadimmalykhin/svg-converter:latest
+      image: ghcr.io/vadimmalykhin/svg-converter.dart:latest
       credentials:
         username: ${{ github.actor }}
         password: ${{ github.token }}
