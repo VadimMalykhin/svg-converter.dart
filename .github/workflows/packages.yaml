@@ -11,6 +11,9 @@ on:
           - self-hosted
           - ubuntu-latest
 
+permissions:
+  packages: write
+
 jobs:
   publish:
     runs-on: ${{ inputs.runs_on }}
