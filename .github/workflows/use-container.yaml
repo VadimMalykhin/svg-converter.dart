@@ -1,0 +1,24 @@
+name: Use Container
+
+on:
+  workflow_dispatch:
+    inputs:
+      runs_on:
+        required: true
+        type: choice
+        description: Runs on
+        options:
+          - self-hosted
+          - ubuntu-latest
+
+env:
+  RUNS_ON: ubuntu-latest
+  TAG_NAME: latest
+
+jobs:
+  run:
+    runs-on: ${{ inputs.runs_on }}
+    container: ghcr.io/vadimmalykhin/svg-converter:latest
+    steps:
+      - name: Run SVG Converter
+        run: /usr/bin/svg-converter
